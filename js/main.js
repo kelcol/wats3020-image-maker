@@ -11,65 +11,23 @@
 
 class ImageMaker {
     constructor() {
-        // When this class is instantiated, the `constructor()` method is executed.
-        // TODO: Set up attributes that point to the HTML elements we wish to work with.
+        this.imagePreview = document.getElementById('image-preview'); // Select image div
+        this.topText = document.createElement('p'); // create p element for top text
+        this.topText.setAttribute("class", "top-text"); // assign attribute
+        this.imagePreview.appendChild(this.topText); // append to img preview
+        this.bottomText = document.createElement('p'); // create another p element for bottom text
+        this.bottomText.setAttribute("class", "bottom-text"); // assign attribute
+        this.imagePreview.appendChild(this.bottomText); // append to img preview
 
-        // TODO: Select the `#image-preview` div using any document selector method.
-        this.imagePreview = document.getElementById('image-preview');
-
-        // TODO: create a new `<p>` element called `this.topText`
-        this.topText = document.createElement('p');
-        // TODO: Add a `class` attribute to `this.topText` that contains the classname "top-text".
-        this.topText.setAttribute("class", "top-text");
-
-
-        // TODO: Append `this.topText` as a child element to `this.imagePreview`
-        this.imagePreview.appendChild(this.topText);
-
-
-        // TODO: create a new `<p>` element called `this.bottomText`
-        this.bottomText = document.createElement('p');
-        // TODO: Add a `class` attribute to `this.bottomText` that contains the classname "bottom-text".
-        this.bottomText.setAttribute("class", "bottom-text");
-
-        // TODO: Append `this.bottomText` as a child element to `this.imagePreview`
-        this.imagePreview.appendChild(this.bottomText);
-
-        // This class also needs to use the form fields to read user input. Set
-        // those up for future use, too.
-
-        // TODO: Select the `input` element with the `name` attribute "backgroundImage"
-        this.backgroundInputE = document.querySelector("select[name='backgroundImage']");
-        console.log(this.backgroundInputE);
-        this.backgroundInput = this.backgroundInputE.options[this.backgroundInputE.selectedIndex].value;
-        console.log(this.backgroundInput);
-
-
-        // TODO: Select the `input` element with the `name` attribute "topText"
-        this.topTextInput = document.querySelector("input[name='topText']").value;
-        console.log(this.topTextInput);
-        // TODO: Select the `input` element with the `name` attribute "bottomText"
-        this.bottomTextInput = document.querySelector("input[name='bottomText']").value;
-        console.log(this.bottomTextInput);
-
-        // NOTE: If you add additional form fields to modify other aspects of
-        // the image, then you will need to make attributes for each of those
-        // elements here.
+        this.backgroundInput = document.querySelector('select[name="backgroundImage"]'); // select background img dropdown
+        // this.backgroundInput = document.querySelector('select[name="backgroundImage"]').value; // Not sure why .value can't be extracted here
+        this.topTextInput = document.querySelector("input[name='topText']"); // select top text input
+        this.bottomTextInput = document.querySelector("input[name='bottomText']"); // select bottom text input
     }
     drawPreview() {
-        // This function is called whenever a user changes one of the form fields
-        // and whenever an image is generated for download. This function must
-        // update the style attributes and innerHTML content of the HTML
-        // elements selected in the `constructor()` of this class in order to
-        // update `this.imagePreview`.
-
-        // TODO: Update the `background-image` CSS property for `this.imagePreview`.
-
-        // TODO: Update the `innerHTML` of `this.topText`.
-
-        // TODO: Update the `innerHTML` of `this.bottomText`
-
-
+        this.imagePreview.style.backgroundImage = `url(images/${this.backgroundInput.value})`; // draw img
+        this.topText.innerHTML = this.topTextInput.value; // draw top text
+        this.bottomText.innerHTML = this.bottomTextInput.value; // draw bottom text
     }
     downloadImage() {
         this.drawPreview();
@@ -103,7 +61,6 @@ function generateImage(elementID = "image-preview", height = "800px", width = "1
         });
 }
 
-
 // This function creates event listeners for each every form field added to
 // the image maker form as well as the submit button that generates an image
 // for download. New form inputs can be created and will automatically have
@@ -130,3 +87,4 @@ function applyEventListeners() {
 
 // Apply event listeners on page load.
 applyEventListeners();
+console.log(this.backgroundInput, this.topTextInput, this.bottomTextInput);
